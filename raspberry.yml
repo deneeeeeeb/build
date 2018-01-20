@@ -1,0 +1,32 @@
+- hosts: raspberry
+  remote_user: pi
+  become: yes
+  tasks:
+  - name: "install apt package"
+    apt :
+      name : "{{item}}"
+    with_items:
+      - git
+      - gcc
+      - make
+      - openssl
+      - libssl-dev
+      - libbz2-dev
+      - libreadline-dev
+      - libsqlite3-dev
+
+  - name: "put pyenv"
+    become_user: pi
+    git :
+      repo: "git://github.com/yyuu/pyenv.git"
+      dest: "/home/pi/.pyenv"
+  # todo : install & setting python 3.6.3
+
+
+  - name: "set timezone"
+    timezone:
+      name: Asia/Tokyo
+
+
+  roles:
+    - file_copy

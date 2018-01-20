@@ -1,0 +1,10 @@
+- name : "copy files"
+  become_user: pi
+  copy :
+    src  : "{{item}}"
+    dest : "/{{item}}"
+
+  with_items :
+    - home/pi/.bashrc
+
+
