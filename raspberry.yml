@@ -43,6 +43,18 @@
       repo: "git://github.com/deneeeeeeb/home-voice.git"
       dest: "/home/pi/home-voice/git"
 
+  - name: "deploy slackbot"
+    become_user: pi
+    git:
+      repo: "git://github.com/deneeeeeeb/slackbot.git"
+      dest: "/home/pi/slackbot"
+
+
+  - name: "deploy tweetsync"
+    become_user: pi
+    git:
+      repo: "git://github.com/deneeeeeeb/tweetsync.git"
+      dest: "/home/pi/tweetsync"
 
 
   roles:
