@@ -7,4 +7,3 @@
   with_items :
     - home/pi/.bashrc
     - home/pi/home-voice/node_modules/mdns/lib/browser.js
-

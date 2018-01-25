@@ -1,0 +1,25 @@
+- name : "copy files"
+  copy :
+    src  : "{{item}}"
+    dest : "/{{item}}"
+
+  with_items :
+    - etc/systemd/system/tweetsync.service
+    - etc/systemd/system/loginchecker.service
+    - etc/systemd/system/weaponbot.service
+    - etc/systemd/system/teambot.service
+    - etc/systemd/system/slackbot.service
+
+- name : "run {{item}}"
+  systemd :
+    name  : "{{item}}"
+    state : started
+    daemon_reload : yes
+
+  with_items :
+    - tweetsync
+    - loginchecker
+    - weaponbot
+    - teambot
+    - slackbot
+

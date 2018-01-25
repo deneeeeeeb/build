@@ -1,0 +1,12 @@
+[Unit]
+Description = weaponbot
+
+[Service]
+ExecStart=/home/pi/discordbot/weaponbot.py
+ExecStop=/bin/kill ${MAINPID}
+User=pi
+Restart=no
+Type=simple
+
+[Install]
+WantedBy=multi-user.target
