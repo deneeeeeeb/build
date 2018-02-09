@@ -18,11 +18,11 @@
       # - libavahi-compat-libdnssd-dev
 
 
-  - name: "put pyenv"
-    become_user: pi
-    git :
-      repo: "git://github.com/yyuu/pyenv.git"
-      dest: "/home/pi/.pyenv"
+  # - name: "put pyenv"
+  #   become_user: pi
+  #   git :
+  #     repo: "git://github.com/yyuu/pyenv.git"
+  #     dest: "/home/pi/.pyenv"
   # todo : install & setting python 3.6.3
 
 
@@ -35,6 +35,8 @@
     git:
       repo: "git://github.com/deneeeeeeb/discordbot.git"
       dest: "/home/pi/discordbot"
+    notify:
+      - "restart services"
      
 
   - name: "deploy home-voice"
@@ -42,21 +44,40 @@
     git:
       repo: "git://github.com/deneeeeeeb/home-voice.git"
       dest: "/home/pi/home-voice/git"
+    notify:
+      - "restart services"
 
   - name: "deploy slackbot"
     become_user: pi
     git:
       repo: "git://github.com/deneeeeeeb/slackbot.git"
       dest: "/home/pi/slackbot"
-
+    notify:
+      - "restart services"
 
   - name: "deploy tweetsync"
     become_user: pi
     git:
       repo: "git://github.com/deneeeeeeb/tweetsync.git"
       dest: "/home/pi/tweetsync"
-
+    notify:
+      - "restart services"
 
   roles:
     - file_copy
     - systemd
+
+
+  handlers:
+    - name : "restart services"
+      systemd : 
+        name  : "{{item}}"
+        state : restarted
+        daemon_reload : yes
+
+      with_items :
+        - tweetsync
+        - loginchecker
+        - weaponbot
+        - teambot
+        - slackbot
